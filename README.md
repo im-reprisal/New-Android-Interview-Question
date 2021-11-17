@@ -7,6 +7,7 @@ To navigate transitions between stages of the activity lifecycle, the Activity c
 <img src="https://developer.android.com/guide/components/images/activity_lifecycle.png" class="img-fluid" />
 </div>
 **Source:** _developer.android.com_
+
 ### Q2: What is an Activity? ☆
 **Answer:**
 An **activity** provides the window in which the app draws its UI. This window typically fills the screen, but may be smaller than the screen and float on top of other windows. Generally, one activity implements one screen in an app. For instance, one of an app’s activities may implement a Preferences screen, while another activity implements a Select Photo screen.
@@ -342,6 +343,7 @@ Let's go in reverse order:
 And as a bonus...
  - [**Log.wtf**](https://developer.android.com/reference/android/util/Log.html#wtf(java.lang.String,java.lang.String)): Use this when stuff goes absolutely, horribly, holy-crap wrong. You know those catch blocks where you're catching errors that you *never* should get...yeah, if you wanna log them use Log.wtf
 **Source:** _stackoverflow.com_
+
 ### Q48: What are the differences between onCreate(), onCreateView(), and onActivityCreated() in fragments and what would they each be used for? ☆☆☆
 **Answer:**
 They are all called in the Fragment but are called at different times.
@@ -355,16 +357,19 @@ And,
 <img src="https://i.stack.imgur.com/qyU1H.png" class="img-fluid" />
 </div>
 **Source:** _stackoverflow.com_
+
 ### Q49: What is the difference between onCreate() and onCreateView() lifecycle methods in Fragment? ☆☆☆
 **Answer:**
 * **onCreate** is called on initial creation of the fragment. You do your non graphical initializations here. It finishes even before the layout is inflated and the fragment is visible.
 * **onCreateView** is called to inflate the layout of the fragment i.e graphical initialization usually takes place here. It is always called sometimes after the onCreate method.
 **Source:** _stackoverflow.com_
+
 ### Q50: When to use Android's ArrayMap instead of a HashMap? ☆☆☆
 **Answer:**
 **ArrayMap** uses way less memory than **HashMap** and is recommended for up to a few hundred items, especially if the map is not updated frequently. Spending less time allocating and freeing memory may also provide some general performance gains.
 Update performance is a bit worse because any insert requires an array copy. Read performance is comparable for a small number of items and uses binary search.
 **Source:** _stackoverflow.com_
+
 ### Q51: What are the differences between ArrayList and ArrayMap? ☆☆☆
 **Answer:**
 **ArrayMap** keeps its mappings in an array data structure — an integer array of hash codes for each item, and an Object array of the key -> value pairs.
@@ -896,6 +901,7 @@ You *only* use `getApplicationContext()` when you *know* you need a `Context` fo
  - Use `getApplicationContext()` when you bind to a `Service` from an `Activity`, if you wish to pass the `ServiceConnection` (i.e., the handle to the binding) between `Activity` instances via `onRetainNonConfigurationInstance()`. Android internally tracks bindings via these `ServiceConnections` and holds references to the `Contexts` that create the bindings. If you bind from the `Activity`, then the new `Activity` instance will have a reference to the `ServiceConnection` which has an implicit reference to the old `Activity`, and the old `Activity` cannot be garbage collected.
 - Some developers use custom subclasses of `Application` for their own global data, which they retrieve via `getApplicationContext()`. That's certainly possible. 
 **Source:** _stackoverflow.com_
+    
 ### Q102:  Explain reasons why not to use getApplicationContext()? ☆☆☆☆☆
 **Answer:**
 Here are reasons why *not* to use `getApplicationContext()` wherever you go:
@@ -906,6 +912,7 @@ See this table as a guidance for when to use the different types of Context:
 <img src="https://i.stack.imgur.com/1o5MI.png" class="img-fluid" />
 </div>
 **Source:** _stackoverflow.com_
+    
 ### Q103: What is the relationship between Looper, Handler and MessageQueue in Android? ☆☆☆☆☆
 **Answer:**
 A `Looper` is a message handling loop: it reads and processes items from a `MessageQueue`. The `Looper` class is usually used in conjunction with a `HandlerThread` (a subclass of `Thread`).
@@ -917,16 +924,19 @@ The relationships between Looper, Handler and MessageQueue is shown below:
 <img src="https://i.stack.imgur.com/h4z38.jpg" class="img-fluid" />
 </div>
 **Source:** _stackoverflow.com_
+    
 ### Q104: What is the onTrimMemory method? ☆☆☆☆☆
 **Answer:**
 Android can reclaim memory from your app in several ways or kill your app entirely if necessary to free up memory for critical tasks. To further help balance the system memory and avoid the system's need to kill your app process, you can implement the **ComponentCallbacks2** interface in your Activity classes.
 `onTrimMemory() `callback method allows your app to listen for memory related events when your app is in either the foreground or the background, and then release objects in response to app lifecycle or system events that indicate the system needs to reclaim memory.
 Sometimes to improve performance you have to increase memory usage, such as caching some data used by your activities. That's the type of resource you should release when `onTrimMemory` is called, so your app uses less memory, even if it affects performance. 
 **Source:** _developer.android.com_
+    
 ### Q105: What happens if the user navigates away or closes the app while I still have a reference to the Activity the user just closed in my AsyncTask? ☆☆☆☆☆
 **Answer:**
 Short answer - **Memory Leaks**. As long as some part of the app like an **AsyncTask** still holds a reference to the **Activity** it will not be destroyed. It will stick around until the AsyncTask is done or releases its reference in some other way. This can have very bad consequences like your app crashing, but the worst consequences are the ones you don't notice: your app may keep reference to Activities which should have been released ages ago and each time the user does whatever leaks the Activity the memory on the device might get more and more full until seemingly out of nowhere Android kills your app for consuming too much memory.
 **Source:** _stackoverflow.com_
+    
 ### Q106: What is Intent vs Sticky Intent vs Pending Intent?  ☆☆☆☆☆
 **Answer:**
 **Intent** - is a message passing mechanism between components of Android, except for Content Provider. You can use Intent to start any component.
@@ -934,11 +944,13 @@ Short answer - **Memory Leaks**. As long as some part of the app like an **Async
 One example of a sticky broadcast sent via the operating system is ACTION_BATTERY_CHANGED. When you call registerReceiver() for that action — even with a null BroadcastReceiver — you get the Intent that was last Broadcast for that action. 
 **Pending Intent** - If you want some one to perform any Intent operation at future point of time on behalf of you, then we will use Pending Intent.
 **Source:** _stackoverflow.com_
+    
 ### Q107: What is a Sticky Broadcast? ☆☆☆☆
 **Answer:**
 A normal broadcast Intent is not available anymore after is was send and processed by the system. If you use the `sendStickyBroadcast(Intent)` method, the **Intent is sticky**, meaning the Intent you are sending stays around after the broadcast is complete.
 The value of a **sticky broadcast** is the value that was last broadcast and is currently held in the sticky cache. This is not the value of a broadcast that was received right now. I suppose you can say it is like a browser cookie that you can access at any time.
 **Source:** _stackoverflow.com_
+    
 ### Q108: What is the difference between Local, Normal, Ordered and Sticky broadcasts? ☆☆☆☆☆
 **Answer:**
 **Normal Broadcast**

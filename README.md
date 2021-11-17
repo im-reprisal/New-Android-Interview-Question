@@ -957,13 +957,16 @@ The value of a **sticky broadcast** is the value that was last broadcast and is 
 - use `sendBroadcast()`
 - asynchronous broadcast
 - any receiver receives broadcast not any particular order
+    
 **Ordered Broadcast**
 - use `sendOrderedBroadcast()`
 - synchronous broadcast
 - receiver receives broadcast in priority base
 - we can also simply abort broadcast in this type
+    
 **Local Broadcast**
 - use only when broadcast is used only inside same process
+    
 **Sticky Broadcast**
 - normal broadcast intent is not available any more after this was send and processed by the system.
 - use `sendStickyBroadcast(Intent)`
